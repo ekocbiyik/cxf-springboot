@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="QueryQuotaWebService"
+                  targetNamespace="http://webservice.ekocbiyik.com.tr/"
+                  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+                  xmlns:ns1="http://webservice.ekocbiyik.com.tr/"
+                  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+    <wsdl:types>
+        <xs:schema attributeFormDefault="unqualified" elementFormDefault="unqualified"
+                   targetNamespace="http://webservice.ekocbiyik.com.tr/"
+                   xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                   xmlns:tns="http://webservice.ekocbiyik.com.tr/">
+            <xs:element name="getQuotaInfoInput" type="tns:getQuotaInfoInput"/>
+            <xs:element name="getQuotaInfoResponse" type="tns:getQuotaInfoResultBean"/>
+            <xs:element name="getQuotaInfosHistoryInput" type="tns:getQuotaInfosHistoryInput"/>
+            <xs:element name="getQuotaInfoHistoryResponse" type="tns:getQuotaInfoHistoryResultBean"/>
+            <xs:element name="getExtDetailHistoryInput" type="tns:getExtDetailHistoryInput"/>
+            <xs:element name="getExtDetailHistoryResponse" type="tns:getExtDetailHistoryResultBean"/>
+            <xs:element name="getExtDetailInfoInput" type="tns:getExtDetailInfoInput"/>
+            <xs:element name="getExtDetailInfoResponse" type="tns:getExtDetailInfoResultBean"/>
+            <xs:complexType name="getQuotaInfoInput">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="xdslNo" type="xs:string"/>
+                    <xs:element minOccurs="0" name="username" type="xs:string"/>
+                    <xs:element minOccurs="0" name="transactionId" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="getQuotaInfoResultBean">
+                <xs:sequence>
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="quotaInfos" nillable="true" type="tns:quotaInfos"/>
+                    <xs:element minOccurs="1" maxOccurs="1" name="actionDate" type="xs:string"/>
+                    <xs:element minOccurs="0" name="resultCode" type="xs:string"/>
+                    <xs:element minOccurs="0" name="detail" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="quotaInfos">
+                <xs:sequence>
+                    <xs:element block="restriction" name="aknType">
+                        <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                                <xs:enumeration value="BASE"/>
+                                <xs:enumeration value="EK"/>
+                                <xs:enumeration value="TOPLAM"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="directionName">
+                        <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                                <xs:enumeration value="DOWNLOAD"/>
+                                <xs:enumeration value="UPLOAD"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="usedQuota" type="xs:string"/>
+                    <xs:element name="packageQuota" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="getQuotaInfosHistoryInput">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="xdslNo" type="xs:string"/>
+                    <xs:element minOccurs="0" name="username" type="xs:string"/>
+                    <xs:element minOccurs="0" name="transactionId" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="getQuotaInfoHistoryResultBean">
+                <xs:sequence>
+                    <xs:element maxOccurs="6" minOccurs="6" name="quotaInfosHistory" nillable="true" type="tns:quotaInfosHistory"/>
+                    <xs:element minOccurs="0" name="resultCode" type="xs:string"/>
+                    <xs:element minOccurs="0" name="detail" type="xs:string"/>
+                    <xs:element minOccurs="1" maxOccurs="1" name="actionDate" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="quotaInfosHistory">
+                <xs:sequence>
+                    <xs:element name="aknType" block="restriction">
+                        <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                                <xs:enumeration value="BASE"/>
+                                <xs:enumeration value="EK"/>
+                                <xs:enumeration value="TOPLAM"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="directionName">
+                        <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                                <xs:enumeration value="DOWNLOAD"/>
+                                <xs:enumeration value="UPLOAD"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="usedQuota" type="xs:string"/>
+                    <xs:element name="DateYYMM" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="getExtDetailHistoryInput">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="xdslNo" type="xs:string"/>
+                    <xs:element minOccurs="0" name="username" type="xs:string"/>
+                    <xs:element minOccurs="0" name="transactionId" type="xs:string"/>
+                    <xs:element minOccurs="0" name="period" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="getExtDetailHistoryResultBean">
+                <xs:sequence>
+                    <xs:element maxOccurs="unbounded" name="extDetailHistory" nillable="true" type="tns:extDetailHistory"/>
+                    <xs:element minOccurs="0" name="resultCode" type="xs:string"/>
+                    <xs:element minOccurs="0" name="detail" type="xs:string"/>
+                    <xs:element name="actionDate" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="extDetailHistory">
+                <xs:sequence>
+                    <xs:element name="extPackageType" type="xs:string"/>
+                    <xs:element name="directionName" type="xs:string"/>
+                    <xs:element name="packageSpeed" type="xs:string"/>
+                    <xs:element name="packageQuota" type="xs:string"/>
+                    <xs:element name="startDate" type="xs:string"/>
+                    <xs:element name="endDate" type="xs:string"/>
+                    <xs:element name="renewCount" type="xs:string"/>
+                    <xs:element name="repeat" type="xs:string"/>
+                    <xs:element name="usedQuota" type="xs:string"/>
+                    <xs:element name="requestedDate" type="xs:string"/>
+                    <xs:element name="productNumber" type="xs:string"/>
+
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="getExtDetailInfoInput">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="xdslNo" type="xs:string"/>
+                    <xs:element minOccurs="0" name="username" type="xs:string"/>
+                    <xs:element minOccurs="0" name="transactionId" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="getExtDetailInfoResultBean">
+                <xs:sequence>
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="extDetailInfos" nillable="true" type="tns:extDetailInfos"/>
+                    <xs:element name="actionDate" type="xs:string"/>
+                    <xs:element minOccurs="0" name="resultCode" type="xs:string"/>
+                    <xs:element minOccurs="0" name="detail" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="extDetailInfos">
+                <xs:sequence>
+                    <xs:element name="extPackageType" type="xs:string"/>
+                    <xs:element name="directionName" type="xs:string"/>
+                    <xs:element name="packageSpeed" type="xs:string"/>
+                    <xs:element name="packageQuota" type="xs:string"/>
+                    <xs:element name="startDate" type="xs:string"/>
+                    <xs:element name="endDate" type="xs:string"/>
+                    <xs:element name="renewCount" type="xs:string"/>
+                    <xs:element name="repeat" type="xs:string"/>
+                    <xs:element name="usedQuota" type="xs:string"/>
+                    <xs:element name="requestedDate" type="xs:string"/>
+                    <xs:element name="productNumber" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+        </xs:schema>
+    </wsdl:types>
+    <wsdl:message name="getQuotaInfo">
+        <wsdl:part element="ns1:getQuotaInfoInput" name="parameters"/>
+    </wsdl:message>
+    <wsdl:message name="getQuotaInfoResponse">
+        <wsdl:part element="ns1:getQuotaInfoResponse" name="parameters"/>
+    </wsdl:message>
+    <wsdl:message name="getQuotaInfoHistory">
+        <wsdl:part element="ns1:getQuotaInfosHistoryInput" name="parameters"/>
+    </wsdl:message>
+    <wsdl:message name="getQuotaInfoHistoryResponse">
+        <wsdl:part element="ns1:getQuotaInfoHistoryResponse" name="parameters"/>
+    </wsdl:message>
+    <wsdl:message name="getExtDetailHistory">
+        <wsdl:part element="ns1:getExtDetailHistoryInput" name="parameters"/>
+    </wsdl:message>
+    <wsdl:message name="getExtDetailInfoResponse">
+        <wsdl:part element="ns1:getExtDetailInfoResponse" name="parameters"/>
+    </wsdl:message>
+    <wsdl:message name="getExtDetailHistoryResponse">
+        <wsdl:part element="ns1:getExtDetailHistoryResponse" name="parameters"/>
+    </wsdl:message>
+    <wsdl:message name="getExtDetailInfo">
+        <wsdl:part element="ns1:getExtDetailInfoInput" name="parameters"/>
+    </wsdl:message>
+    <wsdl:portType name="QueryQuotaWebService">
+        <wsdl:operation name="getQuotaInfo">
+            <wsdl:input message="ns1:getQuotaInfo" name="getQuotaInfo"/>
+            <wsdl:output message="ns1:getQuotaInfoResponse" name="getQuotaInfoResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="getQuotaHistory">
+            <wsdl:input message="ns1:getQuotaInfoHistory" name="getQuotaInfoHistory"/>
+            <wsdl:output message="ns1:getQuotaInfoHistoryResponse" name="getQuotaInfoHistoryResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="getExtDetailHistory">
+            <wsdl:input message="ns1:getExtDetailHistory" name="getExtDetailHistory"/>
+            <wsdl:output message="ns1:getExtDetailHistoryResponse" name="getExtDetailHistoryResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="getExtDetailInfo">
+            <wsdl:input message="ns1:getExtDetailInfo" name="getExtDetailInfo"/>
+            <wsdl:output message="ns1:getExtDetailInfoResponse" name="getExtDetailInfoResponse"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="QueryQuotaWebServiceImplServiceSoapBinding" type="ns1:QueryQuotaWebService">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="getQuotaInfo">
+            <soap:operation soapAction="" style="document"/>
+            <wsdl:input name="getQuotaInfo">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="getQuotaInfoResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="getQuotaHistory">
+            <soap:operation soapAction="" style="document"/>
+            <wsdl:input name="getQuotaInfoHistory">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="getQuotaInfoHistoryResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="getExtDetailHistory">
+            <soap:operation soapAction="" style="document"/>
+            <wsdl:input name="getExtDetailHistory">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="getExtDetailHistoryResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="getExtDetailInfo">
+            <soap:operation soapAction="" style="document"/>
+            <wsdl:input name="getExtDetailInfo">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="getExtDetailInfoResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="QueryQuotaWebServiceImplService">
+        <wsdl:port binding="ns1:QueryQuotaWebServiceImplServiceSoapBinding" name="QueryQuotaWebService">
+            <soap:address location="http://0.0.0.0:8080/QueryQuotaWebService"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>
